@@ -1,0 +1,21 @@
+.olxapp__component{
+    display: flex;
+    background: rgba(0,47,52,.03);
+    justify-content: center;
+    align-items: center;
+    height: 220px;
+    padding: 0px 50px;
+    margin: 0 auto;
+    margin-bottom: 250px;
+}
+
+.olxapp__component> div{
+    width: 100%;
+    text-align: center;
+    padding-bottom: 25px; 
+}
+
+.olxapp__component__applicattionicon span img{
+    width: 130px;
+    margin: 0px 6px;
+}

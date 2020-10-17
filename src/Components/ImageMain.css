@@ -1,0 +1,17 @@
+.ImageMain-1{
+    background-image: url('https://statics.olx.com.pk/external/base/img/hero_bg_pk.jpg');
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: cover;
+    height: 252px;
+
+}
+
+.ImageMain-2{
+    background-image: url('https://tpc.googlesyndication.com/simgad/12756253881537486263');
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: contain;
+    height: 250px;
+    margin-top: 50px;
+}

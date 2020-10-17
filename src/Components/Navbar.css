@@ -6,3 +6,20 @@
     background-color:  #fff;
     color: #000;
 }
+
+.navbar__component__button{
+    border: none;
+    outline: none;
+}
+
+.navbar__component__button:hover{
+    border: none;
+    outline: none;
+}
+
+
+
+.navbar__component__button span{
+    border: none;
+    outline: none;
+}
