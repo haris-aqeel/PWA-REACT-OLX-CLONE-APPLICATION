@@ -9,6 +9,8 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "bootstrap": "^4.5.3",
+    "firebase": "^7.24.0",
+    "firebase-tools": "^8.12.1",
     "fontsource-roboto": "^3.0.3",
     "jquery": "^3.5.1",
     "react": "^16.14.0",
