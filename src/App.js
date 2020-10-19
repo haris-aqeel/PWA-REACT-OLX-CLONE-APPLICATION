@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Route,  Switch} from 'react-router-dom'
 import Home from './Pages/Home'
 import Sell from './Pages/Sell'
 import Category from './Pages/Category'
+import NotFound from './Pages/NotFound'
 import { useStateValue } from './GlobalState/ContextProvider';
 
 function App() {
@@ -20,6 +21,9 @@ function App() {
         </Route>
         <Route path='/category'>
             <Category/>
+        </Route>
+        <Route path='/notfound'>
+            <NotFound/>
         </Route>
         </Switch>
       </Router>
