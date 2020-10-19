@@ -16,8 +16,8 @@ import Avatar from '@material-ui/core/Avatar';
 import {useStateValue} from '../GlobalState/ContextProvider'
 import {Fb_auth_login, Fb_auth_logout} from '../Components/Authentication/Fb_auth'
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-
-
+import Badge from '@material-ui/core/Badge';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 const useStyles = makeStyles((theme) => ({
   modal: {
     display: 'flex',
@@ -84,6 +84,11 @@ function Header() {
     setOpen1(false);
   };
 
+  const defaultProps = {
+    color: 'secondary',
+    children: <FavoriteIcon />,
+  };
+
   return (
     <div className="header_component">
       <div className="header__controlLogo">
@@ -138,6 +143,15 @@ function Header() {
                 <div className='user__avatar__text'>
                 <p>{userdata.username}</p>
                 <h6>{userdata.email}</h6>
+                </div>
+                
+                <div className='Badge' style={{margin: '20px 0px'}}>
+                  <Button>
+                  <Badge badgeContent={1} {...defaultProps} />View Favourite Adds
+                  </Button>
+                </div>
+                <div>
+                <Button variant="contained" onClick={()=> Fb_auth_logout(dispatch)}>Sign Out from Olx</Button>
                 </div>
               </div>
             ) : null}
