@@ -3,12 +3,13 @@ export const Fb_auth_login = (dispatch) => {
 
     auth().signInWithPopup(provider)
       .then(({ user }) => {
-          console.log(user)
+        
         dispatch({
           type: "Set_User_Data",
           username: user.displayName,
           photourl: user.photoURL,
-          user: true
+          user: true,
+          email: user.email
         })
       })
 
@@ -21,7 +22,8 @@ export const Fb_auth_logout = (dispatch) => {
             type: "Set_User_Data",
             username: null,
             photourl: null,
-            user: false
+            user: false, 
+            email: null
           })
       }).catch(function(error) {
         console.log(error)

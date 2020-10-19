@@ -2,7 +2,7 @@
 
 export const initialState = {
     basket :[],
-    userdata: {user: false, username: null, userphoto: null}
+    userdata: {user: false, username: null, userphoto: null, email: null}
 }
 
 
@@ -32,7 +32,7 @@ const reducer = (state, action) => {
         case "Set_User_Data":
             return{
                 ...state,
-                userdata: {user: action.user, username: action.username, userphoto: action.photourl}
+                userdata: {user: action.user, username: action.username, userphoto: action.photourl, email: action.email}
             }
 
         default: 

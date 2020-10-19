@@ -12,9 +12,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button';
 import FacebookIcon from '@material-ui/icons/Facebook';
-// import {auth, provider} from '../Pages/Login'
+import Avatar from '@material-ui/core/Avatar';
 import {useStateValue} from '../GlobalState/ContextProvider'
 import {Fb_auth_login, Fb_auth_logout} from '../Components/Authentication/Fb_auth'
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -36,6 +38,21 @@ const useStyles = makeStyles((theme) => ({
     width: 300,
     textAlign: 'center'
   },
+  root: {
+    position: 'relative',
+  },
+  dropdown: {
+    position: 'absolute',
+    top: 35,
+    right: 0,
+    zIndex: 1,
+    border: '1px solid',
+    width: 'auto',
+    padding: theme.spacing(1),
+    backgroundColor: theme.palette.background.paper,
+    textAlign: 'center',
+    margin: '0 auto'
+  },
 }));
 
 
@@ -56,6 +73,16 @@ function Header() {
     Fb_auth_login(dispatch);
     handleClose();  
   }
+
+  const [open1, setOpen1] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen1((prev) => !prev);
+  };
+
+  const handleClickAway = () => {
+    setOpen1(false);
+  };
 
   return (
     <div className="header_component">
@@ -80,14 +107,43 @@ function Header() {
         </IconButton>
         </span>
       </div>
+      <div className="header__sell">
+            <div className='header__sell__div'>
+            {userdata.user === true ? 
+                <Link to='/sell'  style={{textDecoration: 'none'}}>
+                  <span className='header__sell__text'> 
+                      <AddIcon/>  Sell
+                  </span>
+                </Link>
+                :  <span className='header__sell__text' onClick={handleOpen}> 
+                    <AddIcon/>  Sell
+                  </span>}
+            </div>
+      </div>
       <div className="header__login">
           {userdata.user === false ? 
-          <button onClick={handleOpen} style={{textDecoration: 'none', outline: 'none'}}>
+          <button onClick={handleOpen} style={{textDecoration: 'none', outline: 'none', border: 'none', backgroundColor: 'inherit'}}>
          <span className='header__login__text'>Login</span>
           </button>: 
-           <button onClick={()=> Fb_auth_logout(dispatch)} style={{textDecoration: 'none', outline: 'none'}}>
-            <p>{userdata.username}</p><span className='header__login__text'>Logout</span>
+          <ClickAwayListener onClickAway={handleClickAway}>
+          <div className={classes.root}>
+            <button onClick={handleClick} type='button' style={{textDecoration: 'none', outline: 'none', border: 'none', backgroundColor: 'inherit'}}>
+            <img src={userdata.userphoto} alt={userdata.username} title={userdata.username}  className='user__image'/>
            </button>
+            {open1 ? (
+              <div className={classes.dropdown}>
+                <div className='user__avatar'>
+                <Avatar className='user__avatar__pic'>{userdata.username[0]}</Avatar>
+                </div>
+                <div className='user__avatar__text'>
+                <p>{userdata.username}</p>
+                <h6>{userdata.email}</h6>
+                </div>
+              </div>
+            ) : null}
+          </div>
+        </ClickAwayListener>
+          
           }
           
           <Modal
@@ -127,19 +183,7 @@ function Header() {
           </Fade>
           </Modal>
         </div>
-        <div className="header__sell">
-            <div className='header__sell__div'>
-            {userdata.user === true ? 
-                <Link to='/sell'  style={{textDecoration: 'none'}}>
-                  <span className='header__sell__text'> 
-                      <AddIcon/>  Sell
-                  </span>
-                </Link>
-                :  <span className='header__sell__text' onClick={handleOpen}> 
-                    <AddIcon/>  Sell
-                  </span>}
-            </div>
-        </div>
+        
     </div>
   );
 }
