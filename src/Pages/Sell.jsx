@@ -59,6 +59,8 @@ const Sell = () => {
                   type="text"
                   className="form-control"
                   id="exampleInputEmail1"
+                  min-length = "6"
+                  max-length="13"
                 />
                 <small id="emailHelp" className="form-text text-muted">
                   This will be shown publically
@@ -100,15 +102,14 @@ const Sell = () => {
               </div>
               <div class="form-group">
                 <label htmlFor="exampleInputPassword1">Category</label>
-                <select className="form-control" placeholder='Category' value={category}
-                onChange={(e)=> setcategory(e.target.value)}>
-                    <option value='mobile'>Mobile Phones</option>
-                    <option value='cars'>Cars</option>
-                    <option value='motorcycles'>Motorcycles</option>
-                    <option value='tablets'>Tablets</option>
-                    <option value='houses'>Houses</option>
-                    <option value='tv'>TV-Audio-Video</option>
-                    <option value='land'>Land and Plots</option>
+                <select className="form-control" placeholder='Category' value={category}>
+                    <option value='mobile' onChange={setcategory('mobile')}>Mobile Phones</option>
+                    <option value='cars' onChange={setcategory('cars')}>Cars</option>
+                    <option value='motorcycles' onChange={setcategory('motorcycles')}>Motorcycles</option>
+                    <option value='tablets' onChange={setcategory('tablets')}>Tablets</option>
+                    <option value='houses' onChange={setcategory('houses')}>Houses</option>
+                    <option value='tv' onChange={setcategory('tv')}>TV-Audio-Video</option>
+                    <option value='land' onChange={setcategory('land')}>Land and Plots</option>
                 </select>
               </div>
               <div className="form-group">

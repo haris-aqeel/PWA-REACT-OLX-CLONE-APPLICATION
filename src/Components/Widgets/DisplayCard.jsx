@@ -14,7 +14,7 @@ import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles({
   root: {
-
+    width: 345,
     maxWidth: 345,
     display: 'inline-block',
     margin: '20px 10px',
@@ -38,10 +38,10 @@ const DisplayCard = (props) => {
           />
           <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            {props.title.slice(0,13)}
+            {props.title.length  > 13 ?props.title.slice(0,13): props.title}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {props.description.slice(0,110)+ '....'}
+            {props.description.length  > 110 ? props.description.slice(0,110)+ '....': props.description}
           </Typography>
           </CardContent>
           </CardActionArea>
