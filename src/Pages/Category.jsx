@@ -15,7 +15,7 @@ import HomeIcon from "@material-ui/icons/Home";
 import TvIcon from "@material-ui/icons/Tv";
 import LandscapeIcon from "@material-ui/icons/Landscape";
 import DonutLargeIcon from "@material-ui/icons/DonutLarge";
-import DisplayCard from "../Components/Widgets/DisplayCard";
+import DisplayCard2 from "../Components/Widgets/DisplayCard2";
 import { NotFoundImage } from "./NotFound";
 
 import firebase from "firebase";
@@ -62,6 +62,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Category() {
+  
   const [database, setdatabase] = useState([]);
   const [mobile, setmobile] = useState([]);
   const [cars, setcars] = useState([]);
@@ -70,9 +71,10 @@ function Category() {
   const [tv, settv] = useState([]);
   const [land, setland] = useState([]);
   const [tablets, settablets] = useState([]);
-
-  useEffect(() => {
+  // useEffect(() => {
+    
     const takeData = () => {
+
       let firebaseRef = firebase.database().ref("users");
       firebaseRef.on("child_added", (snapshot) => {
         const { category } = snapshot.val();
@@ -106,7 +108,8 @@ function Category() {
         setdatabase([...database, snapshot.val()]);
       });
     };
-
+    
+  useEffect(() => {
     takeData();
   }, []);
 
@@ -162,7 +165,7 @@ function Category() {
             {mobile !== undefined && mobile.length > 0 ? (
               mobile.map((mobiles) => {
                 return (
-                  <DisplayCard
+                  <DisplayCard2
                     title={mobiles.title}
                     img={mobiles.image}
                     description={mobiles.description}
@@ -182,7 +185,7 @@ function Category() {
 
           <TabPanel value={value} index={1}>
             {cars !== undefined && cars.length > 0 ? (
-              <DisplayCard
+              <DisplayCard2
                 title={cars.title}
                 img={cars.image}
                 description={cars.description}
@@ -201,7 +204,7 @@ function Category() {
             {motorcycles !== undefined && tablets.length > 0 ? (
               motorcycles.map((motorcycle) => {
                 return (
-                  <DisplayCard
+                  <DisplayCard2
                     title={motorcycle.title}
                     img={motorcycle.image}
                     description={motorcycle.description}
@@ -222,7 +225,7 @@ function Category() {
             {tablets !== undefined && tablets.length > 0 ? (
               tablets.map((tablet) => {
                 return (
-                  <DisplayCard
+                  <DisplayCard2
                     title={tablet.title}
                     img={tablet.image}
                     description={tablet.description}
@@ -244,7 +247,7 @@ function Category() {
             {houses !== undefined && houses.length > 0 ? (
               houses.map((house) => {
                 return (
-                  <DisplayCard
+                  <DisplayCard2
                     title={house.title}
                     img={house.image}
                     description={house.description}
@@ -265,7 +268,7 @@ function Category() {
             {tv !== undefined && tv.length > 0 ? (
               tv.map((tvs) => {
                 return (
-                  <DisplayCard
+                  <DisplayCard2
                     title={tvs.title}
                     img={tvs.image}
                     description={tvs.description}
@@ -286,7 +289,7 @@ function Category() {
             {land !== undefined && land.length > 0 ? (
               land.map((lands) => {
                 return (
-                  <DisplayCard
+                  <DisplayCard2
                     title={lands.title}
                     img={lands.image}
                     description={lands.description}
@@ -307,7 +310,7 @@ function Category() {
             {database !== undefined && database.length > 0 ? (
               database.map((databases) => {
                 return (
-                  <DisplayCard
+                  <DisplayCard2
                     title={databases.title}
                     img={databases.image}
                     description={databases.description}

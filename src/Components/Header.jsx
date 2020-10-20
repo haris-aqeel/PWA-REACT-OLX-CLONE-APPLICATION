@@ -1,5 +1,6 @@
 import React from "react";
 import OlxLogo from "../Images/olx-logo-1.png";
+import {useHistory} from 'react-router-dom'
 import { Link } from "react-router-dom";
 import './Header.css'
 import SearchIcon from "@material-ui/icons/Search";
@@ -57,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 function Header() {
-
+  const history = useHistory();
   const [{userdata}, dispatch] = useStateValue();
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
@@ -83,6 +84,13 @@ function Header() {
   const handleClickAway = () => {
     setOpen1(false);
   };
+
+  const handleOpenSell = () => {
+    handleOpen();
+    if (userdata.user === true){
+      history.push('/sell')
+    }
+  }
 
   const defaultProps = {
     color: 'secondary',
@@ -120,7 +128,7 @@ function Header() {
                       <AddIcon/>  Sell
                   </span>
                 </Link>
-                :  <span className='header__sell__text' onClick={handleOpen}> 
+                :  <span className='header__sell__text' onClick={handleOpenSell}> 
                     <AddIcon/>  Sell
                   </span>}
             </div>

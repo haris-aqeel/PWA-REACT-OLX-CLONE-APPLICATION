@@ -12,7 +12,7 @@ function App() {
   return (
     <div>
       <Router>
-        <Switch>
+        
         <Route exact path='/'>
             <Home/>
         </Route>
@@ -25,7 +25,7 @@ function App() {
         <Route path='/notfound'>
             <NotFound/>
         </Route>
-        </Switch>
+        
       </Router>
     </div>
 

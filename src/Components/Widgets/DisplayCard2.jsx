@@ -24,7 +24,7 @@ const useStyles = makeStyles({
   },
 });
 
-const DisplayCard = (props) => {
+const DisplayCard2 = (props) => {
     const classes = useStyles();
     return (
         <Card className={classes.root}>
@@ -37,10 +37,10 @@ const DisplayCard = (props) => {
           />
           <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            {props.title.slice(0,13)}
+            {props.title}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {props.description.slice(0,110)+ '....'}
+            {props.description.length  > 110 ? props.description.slice(0,110)+ '....': props.description}
           </Typography>
           </CardContent>
           </CardActionArea>
@@ -56,4 +56,4 @@ const DisplayCard = (props) => {
     )
 }
 
-export default DisplayCard
+export default DisplayCard2;
