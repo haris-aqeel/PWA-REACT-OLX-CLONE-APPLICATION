@@ -31,9 +31,10 @@ const Sell = () => {
   const [name, setname] = useState("");
   const [number, setnumber] = useState("");
   const [email, setemail] = useState("");
+  const [location, setlocation] = useState("");
  const handleFormSubmit = (e) => {
     e.preventDefault();
-    writeUserData(title, price, description, category, image, name, number, email);
+    writeUserData(title, price, description, category, image, name, number, email, location);
     alert('Your Add has been Successfully Submited');
     history.push('/')
     
@@ -112,6 +113,17 @@ const Sell = () => {
                   type="number"
                   className="form-control"
                   id="contactNumber"
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="location">Phone</label>
+                <input
+                  required
+                  onChange={(e)=> {setlocation(e.target.value)}}
+                  value={location}
+                  type="text"
+                  className="form-control"
+                  id="location"
                 />
               </div>
               <div className="form-group">

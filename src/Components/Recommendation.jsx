@@ -23,15 +23,23 @@ const Recommendation = () => {
 
     return (
         <div className='recommendation__component'>
-            <h4>Fresh recommendations</h4>
+            <h4 style={{textAlign: 'center'}}>Fresh recommendations</h4>
             <div className='recommendation__component__list'>
             {data.map((current)=> {
-              return <DisplayCard 
+             return current.id !== 20 ? 
+             <DisplayCard 
+              id={current.id}
               key={current.id}
               title={current.title}
               description = {current.description}
               img={current.image}
-              /> 
+              price= {current.price}
+              number= {current.number}
+              name = {current.name}
+              email = {current.email}
+              category = {current.category}
+              location= {current.location}
+              />: null 
             })}
             
             

@@ -1,9 +1,21 @@
 .recommendation__component{
-    margin: 60px 60px;
+    margin: 50px 0;
+}
+
+@media only screen and (max-width: 300px){
+    .recommendation__component{
+        margin:0;
+    }
 }
 
 .recommendation__component__list{
     margin: 0 auto;
     text-align: center;
     
+}
+
+.img{
+    width: '280px'!important;
+     height:'200px'!important;
+    min-width: '180px';
 }

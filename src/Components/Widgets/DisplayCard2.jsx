@@ -15,36 +15,43 @@ import IconButton from '@material-ui/core/IconButton';
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
+    minWidth: 260,
     display: 'inline-block',
     margin: '20px 10px',
     textAlign: 'left'
   },
   media: {
-    height: 140,
+    textAlign: 'center',
+
+
   },
+  price: {
+    fontSize: '25px',
+    textAlign: 'left',
+    fontWeight: '700'
+  },
+  title: {
+    fontSize: '14px',
+    textAlign: 'left',
+    fontWeight: '500',
+    height: '20px',
+    overflow: 'hidden'
+  },
+  desc: {
+    fontSize: '14px',
+    textAlign: 'left',
+    fontWeight: '400',
+    height: '22px',
+    overflow: 'hidden'
+  }
 });
 
 const DisplayCard2 = (props) => {
     const classes = useStyles();
     return (
         <Card className={classes.root}>
-          <CardActionArea>
-          <CardMedia
-            className={classes.media}
-            image={props.img}
-            title="Contemplative Reptile"
-            height="100px"
-          />
-          <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            {props.title}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {props.description.length  > 110 ? props.description.slice(0,110)+ '....': props.description}
-          </Typography>
-          </CardContent>
-          </CardActionArea>
-         <CardActions>
+          {/* style={{marginLeft: '230px'}} */}
+          <CardActions >
           <IconButton aria-label="add to favorites" style={{border: 'none', outline: 'none'}}>
             <FavoriteBorderIcon  style={{border: 'none', outline: 'none'}}/>
           </IconButton>
@@ -52,8 +59,27 @@ const DisplayCard2 = (props) => {
             <DetailsIcon  style={{border: 'none', outline: 'none'}}/>
           </IconButton>
          </CardActions>
+          <CardActionArea>
+          <CardMedia
+            className={classes.media}
+          >
+          <img src={props.img} alt={props.title} className='img' style ={{width: '280px', height: '200px', minWidth: '100px'}}/>
+          </CardMedia>
+          <CardContent>
+          <Typography gutterBottom variant="p" component="p" className={classes.price}>
+            Rs. {props.price}
+          </Typography>
+          <Typography gutterBottom variant="p" component="p" className={classes.title}>
+            {props.title}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p" className={classes.desc}>
+            {props.description+ '....'}
+          </Typography>
+          </CardContent>
+          </CardActionArea>
+         
       </Card>
     )
 }
 
-export default DisplayCard2;
+export default DisplayCard2
