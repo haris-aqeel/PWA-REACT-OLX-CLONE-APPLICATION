@@ -13,27 +13,28 @@ function App() {
   return (
     <div>
       <Router>
-        
-        <Route exact path='/'>
-            <Home/>
-        </Route>
-        <Route path='/sell'>
-            <Sell/>
-        </Route>
-        <Route exact path='/category'>
-            <Category/>
-        </Route>
-        <Route path='/add_users/'>
-            <UserAdds/>
-        </Route>
-        <Route path='/add/'>
-            <Add/>
-        </Route>
-        <Route path='/notfound'>
-            <NotFound/>
-        </Route>
-        
+        <Switch>
+          <Route exact path='/'>
+              <Home/>
+          </Route>
+          <Route path='/sell'>
+              <Sell/>
+          </Route>
+          <Route exact path='/category'>
+              <Category/>
+          </Route>
+          <Route path='/add_users/'>
+              <UserAdds/>
+          </Route>
+          <Route path='/add/'>
+              <Add/>
+          </Route>
+          <Route path='/notfound'>
+              <NotFound/>
+          </Route>
+        </Switch>
       </Router>
+      
     </div>
 
   );
