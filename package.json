@@ -15,6 +15,9 @@
     "jquery": "^3.5.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
+    "react-hook-form": "^6.9.5",
+    "react-loadingg": "^1.7.2",
+    "react-pure-loaders": "^3.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3"
   },

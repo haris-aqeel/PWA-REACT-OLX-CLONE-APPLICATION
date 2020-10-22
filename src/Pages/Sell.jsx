@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import {writeUserData} from '../Components/Database/SumbitAdd.js'
 import {useHistory} from 'react-router-dom'
-
+import {storage} from '../Pages/Login'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,22 +22,36 @@ const useStyles = makeStyles((theme) => ({
 const Sell = () => {
   const classes = useStyles();
   const history = useHistory();
-
   const [title, settitle] = useState("");
   const [price, setprice] = useState(0.00);
   const [description, setdescription] = useState("");
-  const [category, setcategory] = useState("");
-  const [image, setimage] = useState("");
+  const [category, setcategory] = useState("mobile");
   const [name, setname] = useState("");
   const [number, setnumber] = useState("");
   const [email, setemail] = useState("");
   const [location, setlocation] = useState("");
+  const [id, setid] = useState(((Math.random()* Math.random()).toString()).split('.')[1]);
+
+
+ // Storing Images in Cloud Storage
+
+  const uploadFile = (files) => {
+    const file = files[0];
+    const storageRef = storage.ref();
+    const fileRef = storageRef.child(id.toString());
+    fileRef.put(file).
+    then(()=> console.log("Uploaded A file......................................."))
+    .catch((e)=>alert('File Size should not excceed 1Mb'))
+    alert(category)
+  }
+
+
  const handleFormSubmit = (e) => {
+
     e.preventDefault();
-    writeUserData(title, price, description, category, image, name, number, email, location);
-    alert('Your Add has been Successfully Submited');
+    writeUserData( id, title, price, description, category, name, number, email, location);
     history.push('/')
-    
+    alert('Your Add will be live in few Seconds..');
  }
 
 
@@ -116,7 +130,7 @@ const Sell = () => {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="location">Phone</label>
+                <label htmlFor="location">Location</label>
                 <input
                   required
                   onChange={(e)=> {setlocation(e.target.value)}}
@@ -140,16 +154,15 @@ const Sell = () => {
               </div>
               <div className="form-group">
                 <label htmlFor="Description">Add Description</label>
-                <textarea className="form-control" id="Description" rows="3" required
+                <textarea className="form-control" id="Description" rows="3" type="text" required
                 onChange={(e)=> {setdescription(e.target.value)}} value={description}></textarea>
               </div>
               <div className="form-group">
                 <label htmlFor="UploadPhotos">Upload Photos</label>
                 <input
                 required
-                onChange={(e)=> {setimage(e.target.files)}}
-                value={image} 
-                type="file" className="form-control-file" id="UploadPhotos" />
+                onChange={(e)=> {uploadFile(e.target.files)}}
+                type="file" className="form-control-file" />
               </div>
 
               <div className="form-group form-check">

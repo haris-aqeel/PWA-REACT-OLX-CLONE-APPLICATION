@@ -2,21 +2,21 @@
 import firebase from 'firebase'
 
 
-export const writeUserData = (title, price, description, category, image, name, number, email, location) => {
-    // var keys = firebase.database().ref('users').push().key;
-
+export const writeUserData = ( id, title, price, description, category, name, number, email, location) => {
+  
     var details = {
+      id: id,
       title: title,
       price: price,
       description: description,
       category: category,
-      image: image,
       name: name,
       number: number,
       email: email,
       location: location
     }
-
-    firebase.database().ref('users').child(email).set(details);
+    // Id is set as a key 
+    firebase.database().ref('users').child(id).set(details);
   }
 
+ 

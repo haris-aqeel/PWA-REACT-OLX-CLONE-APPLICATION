@@ -4,6 +4,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import StateProvider from './GlobalState/ContextProvider'
 import reducer , { initialState } from './GlobalState/reducer';
+import "../node_modules/bootstrap/dist/css/bootstrap.css"
 ReactDOM.render(
   
   

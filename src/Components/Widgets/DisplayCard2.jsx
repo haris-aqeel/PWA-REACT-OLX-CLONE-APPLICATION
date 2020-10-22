@@ -9,9 +9,10 @@ import DetailsIcon from '@material-ui/icons/Details';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
-
-
-
+import {useStateValue} from '../../GlobalState/ContextProvider' 
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import {storage} from '../../Pages/Login'
+import {Link} from 'react-router-dom'
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
@@ -47,23 +48,52 @@ const useStyles = makeStyles({
 });
 
 const DisplayCard2 = (props) => {
+
     const classes = useStyles();
+    const [{basket}, dispatch] = useStateValue();
+    const ToggleFavourite = (prop) => {
+      (basket.filter(({id})=> {
+        return +id === +props.id
+      } 
+        )).length === 0 ? 
+      dispatch({
+        type: 'Add_To_Basket',
+        item: prop
+      }): 
+      dispatch({
+        type: "Remove_From_Basket",
+        item: prop,
+      })
+    }
+    console.log(props.id)
+
     return (
         <Card className={classes.root}>
-          {/* style={{marginLeft: '230px'}} */}
+
           <CardActions >
-          <IconButton aria-label="add to favorites" style={{border: 'none', outline: 'none'}}>
-            <FavoriteBorderIcon  style={{border: 'none', outline: 'none'}}/>
+          <IconButton aria-label="add to favorites" style={{border: 'none', outline: 'none'}} onClick={()=>ToggleFavourite(props)}>
+          {(basket.filter(({id})=> {
+            return +id === +props.id
+          }
+            )).length > 0 ? <FavoriteIcon  style={{border: 'none', outline: 'none'}}/>
+          : <FavoriteBorderIcon  style={{border: 'none', outline: 'none'}}/>
+        }
+              
           </IconButton>
           <IconButton aria-label="add to favorites" style={{border: 'none', outline: 'none'}}>
             <DetailsIcon  style={{border: 'none', outline: 'none'}}/>
           </IconButton>
          </CardActions>
-          <CardActionArea>
+          <CardActionArea component={Link} to={`/add_users/${props.id.toString()}`}  style={{textDecoration: 'none', color: 'black'}}>
           <CardMedia
             className={classes.media}
           >
-          <img src={props.img} alt={props.title} className='img' style ={{width: '280px', height: '200px', minWidth: '100px'}}/>
+          <img 
+          src={`https://firebasestorage.googleapis.com/v0/b/pwa-olx-clone-application.appspot.com/o/${props.id.toString()}?alt=media&token=4dede770-68f6-4c7e-879f-da97e126463a`}
+          alt={props.title}
+          className='img'
+          style ={{width: '280px', height: '200px', minWidth: '100px'}}
+          />
           </CardMedia>
           <CardContent>
           <Typography gutterBottom variant="p" component="p" className={classes.price}>

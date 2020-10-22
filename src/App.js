@@ -5,6 +5,7 @@ import Home from './Pages/Home'
 import Sell from './Pages/Sell'
 import Category from './Pages/Category'
 import Add from './Pages/Add'
+import UserAdds from './Pages/UserAdds'
 import NotFound from './Pages/NotFound'
 
 function App() {
@@ -21,6 +22,9 @@ function App() {
         </Route>
         <Route exact path='/category'>
             <Category/>
+        </Route>
+        <Route path='/add_users/'>
+            <UserAdds/>
         </Route>
         <Route path='/add/'>
             <Add/>

@@ -1,23 +1,157 @@
-import React from 'react'
-import './style.css'
-const DisplayAdd = (props) => {
-    
-    const {id, title, price, description, category, image} = props;
-    
-    return (
-        <div className='displayAdd'>
-            <div className='row'>
-                <div className='col col-lg-8 col-md-12 col-sm-12 col-12'>
-                <div className="carousel-item image" >
-                    <img src={image} alt="..." />ssssssssssssssssssssss
-                </div>
-                </div>
-                <div className='col col-lg-4 col-md-12 col-sm-12 col-12'>
-                    
-            </div>
-            </div>
-        </div>
-    )
-}
+import React from "react";
+import "./style.css";
+import Paper from "@material-ui/core/Paper";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import ShareIcon from "@material-ui/icons/Share";
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import PhoneIcon from "@material-ui/icons/Phone";
+import { useStateValue } from "../../GlobalState/ContextProvider";
+import IconButton from "@material-ui/core/IconButton";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 
-export default DisplayAdd
+const DisplayAdd = (props) => {
+  const {
+    id,
+    title,
+    price,
+    description,
+    category,
+    image,
+    name,
+    time,
+    number,
+  } = props;
+  const [{ basket }, dispatch] = useStateValue();
+
+  const ToggleFavourite = (prop) => {
+    basket.filter(({ id }) => {
+      return +id === +prop.id;
+    }).length === 0
+      ? dispatch({
+          type: "Add_To_Basket",
+          item: prop,
+        })
+      : 
+      dispatch({
+        type: "Remove_From_Basket",
+        item: prop,
+      })
+  };
+
+  return (
+    <div className="displayAdd">
+      <div className="row">
+        <div className="col col-lg-7 col-md-12 col-sm-12 col-12 ">
+          <div
+            id="carouselExampleControls"
+            className="carousel slide main bg_set"
+            data-ride="carousel"
+          >
+            <div
+              className="carousel-inner "
+              style={{ margin: "0 auto", textAlign: "center" }}
+            >
+              <div
+                className="carousel-item active"
+                style={{ width: "70%", margin: "10%", backgroundColor: "#fff" }}
+              >
+                <img
+                  className="d-block w-100"
+                  src={image}
+                  alt="First slide"
+                  style={{ height: "300px" }}
+                />
+              </div>
+            </div>
+          </div>
+
+          <Paper elevation={3} style={{ margin: "100px 0" }} className="paper">
+            <div style={{ marginTop: "20px" }}>
+              <h1>Description</h1>
+              <br />
+              <hr />
+              <p>{description}</p>
+            </div>
+          </Paper>
+        </div>
+        <div className="col col-lg-4 col-md-12 col-sm-12 col-12">
+          <Paper elevation={3} className="paper">
+            <div className="d-flex align-items-center justify-content-between">
+              <h2 style={{ display: "inline" }}>Rs. {price * 100}</h2>
+              <span>
+                <IconButton style={{ margin: "0 4px" }} onClick={()=>ToggleFavourite(props)}>
+                  {basket.filter(({ id }) => {
+                    return +id === +props.id;
+                  }).length > 0 ? (
+                    <FavoriteIcon style={{ border: "none", outline: "none" }} />
+                  ) : (
+                    <FavoriteBorderIcon
+                      style={{ border: "none", outline: "none" }}
+                    />
+                  )}
+                </IconButton>
+                <IconButton style={{ margin: "0 4px" }}>
+                  <ShareIcon />
+                </IconButton>
+              </span>
+            </div>
+            <div>
+              <p className="text-secondary">{title}</p>
+            </div>
+            <div className="d-flex align-items-center justify-content-between text-secondary">
+              <span>
+                <small>University Road, Karachi, Sindh</small>
+              </span>
+              <span>
+                <small>{time !== undefined ? time : "Oct 12th 2019"}</small>
+              </span>
+            </div>
+          </Paper>
+          <Paper elevation={3} className="paper" style={{ marginTop: "20px" }}>
+            <div style={{ marginBottom: "18px" }}>
+              <h4 style={{ display: "inline", marginBottom: "18px" }}>
+                Seller Description
+              </h4>
+            </div>
+            <div className="d-flex align-items-center justify-content-start">
+              <p style={{ display: "inline", marginRight: "10px" }}>
+                <Avatar src="/broken-image.jpg" />
+              </p>
+              <p className="d-flex flex-column align-items-start justify-content-start">
+                <span>{name !== undefined ? name : "Unknown"}</span>
+                <span>
+                  <small>Member since Feb 2019</small>
+                </span>
+              </p>
+            </div>
+
+            <div>
+              <Button
+                variant="contained"
+                style={{
+                  width: "100%",
+                  backgroundColor: "#002f34",
+                  color: "#fff",
+                  border: "none",
+                }}
+              >
+                Chat with Seller
+              </Button>
+            </div>
+            <div
+              className="d-flex align-items-center justify-content-center"
+              style={{ marginTop: "20px" }}
+            >
+              <PhoneIcon />
+              {number ? number : "+92334567782"}
+            </div>
+          </Paper>
+          <div style={{ marginTop: "20px" }}>Add Id: 12572882829{id}</div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default DisplayAdd;

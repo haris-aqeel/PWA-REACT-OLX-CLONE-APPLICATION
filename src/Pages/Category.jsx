@@ -17,7 +17,7 @@ import LandscapeIcon from "@material-ui/icons/Landscape";
 import DonutLargeIcon from "@material-ui/icons/DonutLarge";
 import DisplayCard2 from "../Components/Widgets/DisplayCard2";
 import { NotFoundImage } from "./NotFound";
-
+import {storage} from './Login'
 import firebase from "firebase";
 
 function TabPanel(props) {
@@ -71,14 +71,14 @@ function Category() {
   const [tv, settv] = useState([]);
   const [land, setland] = useState([]);
   const [tablets, settablets] = useState([]);
-  // useEffect(() => {
+  
     
     const takeData = () => {
 
       let firebaseRef = firebase.database().ref("users");
       firebaseRef.on("child_added", (snapshot) => {
-        const { category } = snapshot.val();
         
+        const { category } = snapshot.val();        
         switch (category) {
           case "mobile":
             setmobile([...mobile, snapshot.val()]);
@@ -106,6 +106,8 @@ function Category() {
         }
 
         setdatabase([...database, snapshot.val()]);
+        
+
       });
     };
     
@@ -162,10 +164,11 @@ function Category() {
             </Tabs>
           </AppBar>
           <TabPanel value={value} index={0}>
-            {mobile !== undefined && mobile.length > 0 ? (
+            {mobile?.length > 0 ? (
               mobile.map((mobiles) => {
                 return (
                   <DisplayCard2
+                    id={mobiles.id}
                     title={mobiles.title}
                     img={mobiles.image}
                     description={mobiles.description}
@@ -173,6 +176,9 @@ function Category() {
                     category={mobiles.category}
                     number={mobiles.number}
                     name={mobiles.number}
+                    email = {mobiles.email}
+                    location = {mobiles.location}
+
                   />
                 );
               })
@@ -184,16 +190,21 @@ function Category() {
           </TabPanel>
 
           <TabPanel value={value} index={1}>
-            {cars !== undefined && cars.length > 0 ? (
-              <DisplayCard2
-                title={cars.title}
-                img={cars.image}
-                description={cars.description}
-                price={cars.price}
-                category={cars.category}
-                number={cars.number}
-                name={cars.number}
+            {cars?.length > 0 ? (
+              cars.map((car)=>{
+              return <DisplayCard2
+                id={car.id}
+                title={car.title}
+                img={car.image}
+                description={car.description}
+                price={car.price}
+                category={car.category}
+                number={car.number}
+                name={car.number}
+                email = {car.email}
+                location = {car.location}
               />
+              })
             ) : (
               
                 <NotFoundImage />
@@ -201,10 +212,11 @@ function Category() {
             )}
           </TabPanel>
           <TabPanel value={value} index={2}>
-            {motorcycles !== undefined && tablets.length > 0 ? (
+            {tablets?.length > 0 ? (
               motorcycles.map((motorcycle) => {
                 return (
                   <DisplayCard2
+                    id={motorcycle.id}
                     title={motorcycle.title}
                     img={motorcycle.image}
                     description={motorcycle.description}
@@ -212,6 +224,8 @@ function Category() {
                     category={motorcycle.category}
                     number={motorcycle.number}
                     name={motorcycle.number}
+                    email = {motorcycle.email}
+                    location = {motorcycle.location} 
                   />
                 );
               })
@@ -222,10 +236,11 @@ function Category() {
             )}
           </TabPanel>
           <TabPanel value={value} index={3}>
-            {tablets !== undefined && tablets.length > 0 ? (
+            {tablets?.length > 0 ? (
               tablets.map((tablet) => {
                 return (
                   <DisplayCard2
+                    id={tablet.id}
                     title={tablet.title}
                     img={tablet.image}
                     description={tablet.description}
@@ -233,6 +248,8 @@ function Category() {
                     category={tablet.category}
                     number={tablet.number}
                     name={tablet.number}
+                    email = {tablet.email}
+                    location = {tablet.location}
                   />
                 );
               })
@@ -244,10 +261,11 @@ function Category() {
           </TabPanel>
 
           <TabPanel value={value} index={4}>
-            {houses !== undefined && houses.length > 0 ? (
+            {houses?.length > 0 ? (
               houses.map((house) => {
                 return (
                   <DisplayCard2
+                    id={house.id}
                     title={house.title}
                     img={house.image}
                     description={house.description}
@@ -255,6 +273,8 @@ function Category() {
                     category={house.category}
                     number={house.number}
                     name={house.number}
+                    email = {house.email}
+                    location = {house.location}
                   />
                 );
               })
@@ -265,10 +285,11 @@ function Category() {
             )}
           </TabPanel>
           <TabPanel value={value} index={5}>
-            {tv !== undefined && tv.length > 0 ? (
+            {tv?.length > 0 ? (
               tv.map((tvs) => {
                 return (
                   <DisplayCard2
+                    id={tvs.id}
                     title={tvs.title}
                     img={tvs.image}
                     description={tvs.description}
@@ -276,6 +297,8 @@ function Category() {
                     category={tvs.category}
                     number={tvs.number}
                     name={tvs.number}
+                    email = {tvs.email}
+                    location = {tvs.location}
                   />
                 );
               })
@@ -286,10 +309,11 @@ function Category() {
             )}
           </TabPanel>
           <TabPanel value={value} index={6}>
-            {land !== undefined && land.length > 0 ? (
+            {land?.length > 0 ? (
               land.map((lands) => {
                 return (
                   <DisplayCard2
+                    id={lands.id}
                     title={lands.title}
                     img={lands.image}
                     description={lands.description}
@@ -297,6 +321,8 @@ function Category() {
                     category={lands.category}
                     number={lands.number}
                     name={lands.number}
+                    email = {lands.email}
+                    location = {lands.location}
                   />
                 );
               })
@@ -307,10 +333,12 @@ function Category() {
             )}
           </TabPanel>
           <TabPanel value={value} index={7}>
-            {database !== undefined && database.length > 0 ? (
+            {database?.length > 0 ? (
+              
               database.map((databases) => {
                 return (
                   <DisplayCard2
+                    id={databases.id}
                     title={databases.title}
                     img={databases.image}
                     description={databases.description}
@@ -318,6 +346,8 @@ function Category() {
                     category={databases.category}
                     number={databases.number}
                     name={databases.number}
+                    email = {databases.email}
+                    location = {databases.location}
                   />
                 );
               })

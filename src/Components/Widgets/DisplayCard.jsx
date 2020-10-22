@@ -10,8 +10,8 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import {Link} from 'react-router-dom'
-
-
+import {useStateValue} from '../../GlobalState/ContextProvider' 
+import FavoriteIcon from '@material-ui/icons/Favorite';
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
@@ -47,12 +47,36 @@ const useStyles = makeStyles({
 });
 
 const DisplayCard = (props) => {
+
     const classes = useStyles();
+    const [{basket}, dispatch] = useStateValue();
+    const ToggleFavourite = (prop) => {
+      (basket.filter(({id})=> {
+        return +id === +props.id
+      } 
+        )).length === 0 ? 
+      dispatch({
+        type: 'Add_To_Basket',
+        item: prop
+      }): 
+      dispatch({
+        type: "Remove_From_Basket",
+        item: prop,
+      })
+    }
+
     return (
         <Card className={classes.root}>
+          
           <CardActions >
-          <IconButton aria-label="add to favorites" style={{border: 'none', outline: 'none'}}>
-            <FavoriteBorderIcon  style={{border: 'none', outline: 'none'}}/>
+          <IconButton aria-label="add to favorites" style={{border: 'none', outline: 'none'}} onClick={()=>ToggleFavourite(props)}>
+          {(basket.filter(({id})=> {
+            return +id === +props.id
+          }
+            )).length > 0 ? <FavoriteIcon  style={{border: 'none', outline: 'none'}}/>
+          : <FavoriteBorderIcon  style={{border: 'none', outline: 'none'}}/>
+        }
+            
           </IconButton>
           <IconButton aria-label="add to favorites" style={{border: 'none', outline: 'none'}}>
             <DetailsIcon  style={{border: 'none', outline: 'none'}}/>
