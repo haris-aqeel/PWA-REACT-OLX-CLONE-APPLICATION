@@ -9,8 +9,87 @@ import PhoneIcon from "@material-ui/icons/Phone";
 import { useStateValue } from "../../GlobalState/ContextProvider";
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemText from '@material-ui/core/ListItemText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Dialog from '@material-ui/core/Dialog';
+import PersonIcon from '@material-ui/icons/Person';
+import AddIcon from '@material-ui/icons/Add';
+import Typography from '@material-ui/core/Typography';
+import { black, white } from '@material-ui/core/colors';
+import WhatsAppIcon from '@material-ui/icons/WhatsApp';
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
+import FacebookIcon from '@material-ui/icons/Facebook';
+const emails = [
+  {text: 'WhatsApp', icon: <WhatsAppIcon/>},
+  {text: 'Facebook',  icon: <FacebookIcon/>}, 
+  {text: 'Linkeden',  icon: <LinkedInIcon/>}
+  ];
+const useStyles = makeStyles({
+  avatar: {
+    backgroundColor: '#000',
+    color: '#fff',
+  },
+});
+
+function SimpleDialog(props) {
+  const classes = useStyles();
+  const { onClose, selectedValue, open } = props;
+
+  const handleClose = () => {
+    onClose(selectedValue);
+  };
+
+  const handleListItemClick = (value) => {
+    onClose(value);
+  };
+
+  return (
+    <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
+      <DialogTitle id="simple-dialog-title">Share on Social Media Platforms</DialogTitle>
+      <List>
+        {emails.map(({text, icon}) => (
+          <ListItem button onClick={() => handleListItemClick(text)} key={text}>
+            <ListItemAvatar>
+              <Avatar className={classes.avatar}>
+                {icon}
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText primary={text} />
+          </ListItem>
+        ))}
+      </List>
+    </Dialog>
+  );
+}
+
+SimpleDialog.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  selectedValue: PropTypes.string.isRequired,
+};
+
 
 const DisplayAdd = (props) => {
+
+  const [open, setOpen] = React.useState(false);
+  const [selectedValue, setSelectedValue] = React.useState(emails[1]);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (value) => {
+    setOpen(false);
+    setSelectedValue(value);
+  };
+
+
+
   const {
     id,
     title,
@@ -80,7 +159,7 @@ const DisplayAdd = (props) => {
             <div className="d-flex align-items-center justify-content-between">
               <h2 style={{ display: "inline" }}>Rs. {price * 100}</h2>
               <span>
-                <IconButton style={{ margin: "0 4px" }} onClick={()=>ToggleFavourite(props)}>
+                <IconButton style={{ margin: "0 4px", outline: 'none', border: 'none' }} onClick={()=>ToggleFavourite(props)} >
                   {basket.filter(({ id }) => {
                     return +id === +props.id;
                   }).length > 0 ? (
@@ -91,9 +170,10 @@ const DisplayAdd = (props) => {
                     />
                   )}
                 </IconButton>
-                <IconButton style={{ margin: "0 4px" }}>
+                <IconButton style={{ margin: "0 4px" , outline: 'none', border: 'none' }} onClick={handleClickOpen}>
                   <ShareIcon />
                 </IconButton>
+                <SimpleDialog selectedValue={selectedValue} open={open} onClose={handleClose} />
               </span>
             </div>
             <div>
@@ -128,6 +208,7 @@ const DisplayAdd = (props) => {
 
             <div>
               <Button
+                href={ `mailto:${emails}`}
                 variant="contained"
                 style={{
                   width: "100%",
