@@ -100,7 +100,7 @@ function Header() {
   };
 
   const history = useHistory();
-  const [{ userdata }, dispatch] = useStateValue();
+  const [{ userdata, basket }, dispatch] = useStateValue();
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -233,8 +233,8 @@ function Header() {
                   </div>
 
                   <div className="Badge" style={{ margin: "20px 0px" }}>
-                    <Button onClick={handleClickOpen}>
-                      <Badge badgeContent={1} {...defaultProps} />
+                    <Button onClick={handleClickOpen} style={{border: 'none', outline: 'none'}}>
+                      <Badge badgeContent={basket?.length} {...defaultProps} />
                       View Favourite Adds
                     </Button>
                     <Dialog
@@ -254,7 +254,7 @@ function Header() {
                             <CloseIcon />
                           </IconButton>
                           <Typography variant="h6" className={classes.title}>
-                            Sound
+                            Favourite Adds
                           </Typography>
                           <Button
                             autoFocus
@@ -266,19 +266,21 @@ function Header() {
                         </Toolbar>
                       </AppBar>
                       <List>
-                        <ListItem button>
+                        {basket?.map((current)=>{
+                         return <>
+                          <ListItem button component = {Link} to = {`/add/${current.id}`}>
                           <ListItemText
-                            primary="Phone ringtone"
-                            secondary="Titania"
+                            primary={current.title}
+                            secondary={`$ ${current.price}`}
+                            
                           />
-                        </ListItem>
-                        <Divider />
-                        <ListItem button>
-                          <ListItemText
-                            primary="Default notification ringtone"
-                            secondary="Tethys"
-                          />
-                        </ListItem>
+                          </ListItem>
+                          <Divider />
+                        </>
+                        })}
+                        
+                        
+                        
                       </List>
                     </Dialog>
                   </div>
